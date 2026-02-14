@@ -33,6 +33,22 @@
 
 ---
 
+
+**One-Liner Install:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/zarigata/t800-ecosystem/main/install.sh | bash -s developer
+```
+
+### Installation Profiles
+
+| Profile | Description | Components |
+|---------|-------------|------------|
+| `essential` | Core agent only | 1 |
+| `developer` | All agents + skills (recommended) | 14 |
+| `business` | Developer + learning | 17 |
+| `full` | All modules | 27 |
+| `advanced` | Full + enhancements | 29 |
+
 ## ⚡ Quick Start
 
 ```bash
@@ -371,7 +387,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 **"I'll be back... with better code."**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com)
+[![GitHub](https://img.shields.io/badge/GitHub-zarigata/t800--ecosystem-black?style=for-the-badge&logo=github)](https://github.com/zarigata/t800-ecosystem)
 [![Docs](https://img.shields.io/badge/Documentation-Available-blue?style=for-the-badge&logo=readthedocs)](docs/t800-README.md)
 [![Issues](https://img.shields.io/badge/Issues-Welcome-green?style=for-the-badge&logo=github)](.github/ISSUE_TEMPLATE)
 

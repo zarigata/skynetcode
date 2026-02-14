@@ -1,0 +1,10 @@
+{
+  "name": "t800-evals",
+  "version": "1.0.0",
+  "description": "T-800 Ecosystem Test Suite",
+  "scripts": {
+    "test": "bun test",
+    "test:coverage": "bun test --coverage"
+  },
+  "devDependencies": {}
+}

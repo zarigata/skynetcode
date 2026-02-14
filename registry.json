@@ -1,0 +1,370 @@
+{
+  "version": "2.0.0",
+  "schema_version": "2.0.0",
+  "repository": "https://github.com/zarigata/t800-ecosystem",
+  "categories": {
+    "essential": "Core components for basic functionality",
+    "standard": "Standard components for typical use",
+    "extended": "Extended components for advanced features",
+    "specialized": "Specialized components for specific domains",
+    "meta": "Meta-level components for system generation"
+  },
+  "components": {
+    "agents": [
+      {
+        "id": "t800",
+        "name": "T-800",
+        "type": "agent",
+        "path": ".opencode/agents/t800.md",
+        "description": "Primary T-800 orchestrator",
+        "tags": ["orchestrator", "planning", "execution"],
+        "dependencies": ["skill:t800-questioning", "skill:t800-planning", "skill:t800-execution"],
+        "category": "essential"
+      },
+      {
+        "id": "t800-questioner",
+        "name": "T-800 Questioner",
+        "type": "agent",
+        "path": ".opencode/agents/t800-questioner.md",
+        "description": "Specialized questioning subagent",
+        "tags": ["questioning", "clarification"],
+        "dependencies": ["skill:t800-questioning"],
+        "category": "essential"
+      },
+      {
+        "id": "t800-planner",
+        "name": "T-800 Planner",
+        "type": "agent",
+        "path": ".opencode/agents/t800-planner.md",
+        "description": "Specialized planning subagent",
+        "tags": ["planning", "architecture"],
+        "dependencies": ["skill:t800-planning"],
+        "category": "essential"
+      },
+      {
+        "id": "t800-executor",
+        "name": "T-800 Executor",
+        "type": "agent",
+        "path": ".opencode/agents/t800-executor.md",
+        "description": "Specialized execution subagent",
+        "tags": ["execution", "automation"],
+        "dependencies": ["skill:t800-execution"],
+        "category": "essential"
+      }
+    ],
+    "subagents": [
+      {
+        "id": "contextscout",
+        "name": "ContextScout",
+        "type": "subagent",
+        "path": ".opencode/agent/subagents/core/contextscout.md",
+        "description": "Smart pattern discovery",
+        "tags": ["context", "discovery"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "externalscout",
+        "name": "ExternalScout",
+        "type": "subagent",
+        "path": ".opencode/agent/subagents/core/externalscout.md",
+        "description": "Live documentation fetching",
+        "tags": ["external-docs", "context7"],
+        "dependencies": ["skill:context7"],
+        "category": "standard"
+      }
+    ],
+    "skills": [
+      {
+        "id": "t800-questioning",
+        "name": "T-800 Questioning",
+        "type": "skill",
+        "path": ".opencode/skills/t800-questioning.md",
+        "description": "Deep questioning skill",
+        "tags": ["questioning"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "t800-planning",
+        "name": "T-800 Planning",
+        "type": "skill",
+        "path": ".opencode/skills/t800-planning.md",
+        "description": "Comprehensive planning skill",
+        "tags": ["planning"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "t800-execution",
+        "name": "T-800 Execution",
+        "type": "skill",
+        "path": ".opencode/skills/t800-execution.md",
+        "description": "Non-stop execution skill",
+        "tags": ["execution"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "context7",
+        "name": "Context7",
+        "type": "skill",
+        "path": ".opencode/skills/context7/SKILL.md",
+        "description": "Fetch live library documentation",
+        "tags": ["documentation", "external"],
+        "dependencies": [],
+        "category": "standard"
+      }
+    ],
+    "contexts": [
+      {
+        "id": "t800-standards",
+        "name": "T-800 Standards",
+        "type": "context",
+        "path": ".opencode/context/core/t800-standards.md",
+        "description": "Core coding standards",
+        "tags": ["standards"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "t800-workflows",
+        "name": "T-800 Workflows",
+        "type": "context",
+        "path": ".opencode/context/core/t800-workflows.md",
+        "description": "Workflow definitions",
+        "tags": ["workflows"],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "questioning-strategies",
+        "name": "Questioning Strategies",
+        "type": "context",
+        "path": ".opencode/context/project-intelligence/questioning-strategies.md",
+        "description": "Question bank strategies",
+        "tags": ["questioning"],
+        "dependencies": [],
+        "category": "standard"
+      },
+      {
+        "id": "planning-templates",
+        "name": "Planning Templates",
+        "type": "context",
+        "path": ".opencode/context/project-intelligence/planning-templates.md",
+        "description": "Plan templates",
+        "tags": ["planning"],
+        "dependencies": [],
+        "category": "standard"
+      },
+      {
+        "id": "reflection-engine",
+        "name": "Reflection Engine",
+        "type": "context",
+        "path": ".opencode/learning/reflection-engine.md",
+        "description": "Self-improvement",
+        "tags": ["learning"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "feedback-processor",
+        "name": "Feedback Processor",
+        "type": "context",
+        "path": ".opencode/learning/feedback-processor.md",
+        "description": "Process execution feedback",
+        "tags": ["learning"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "pattern-extractor",
+        "name": "Pattern Extractor",
+        "type": "context",
+        "path": ".opencode/learning/pattern-extractor.md",
+        "description": "Extract reusable patterns",
+        "tags": ["learning"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "trace-collector",
+        "name": "Trace Collector",
+        "type": "context",
+        "path": ".opencode/telemetry/trace-collector.md",
+        "description": "Collect execution traces",
+        "tags": ["telemetry"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "metrics-aggregator",
+        "name": "Metrics Aggregator",
+        "type": "context",
+        "path": ".opencode/telemetry/metrics-aggregator.md",
+        "description": "Aggregate metrics",
+        "tags": ["telemetry"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "cost-tracker",
+        "name": "Cost Tracker",
+        "type": "context",
+        "path": ".opencode/telemetry/cost-tracker.md",
+        "description": "Track token costs",
+        "tags": ["telemetry"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "exception-classifier",
+        "name": "Exception Classifier",
+        "type": "context",
+        "path": ".opencode/recovery/exception-classifier.md",
+        "description": "Classify exceptions",
+        "tags": ["recovery"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "handling-patterns",
+        "name": "Handling Patterns",
+        "type": "context",
+        "path": ".opencode/recovery/handling-patterns.md",
+        "description": "Recovery patterns",
+        "tags": ["recovery"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "escalation-manager",
+        "name": "Escalation Manager",
+        "type": "context",
+        "path": ".opencode/recovery/escalation-manager.md",
+        "description": "Manage escalation levels",
+        "tags": ["recovery"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "state-recovery",
+        "name": "State Recovery",
+        "type": "context",
+        "path": ".opencode/recovery/state-recovery.md",
+        "description": "Recover execution state",
+        "tags": ["recovery"],
+        "dependencies": [],
+        "category": "extended"
+      },
+      {
+        "id": "react-pattern",
+        "name": "ReAct Pattern",
+        "type": "context",
+        "path": ".opencode/patterns/react.md",
+        "description": "Reason-Act-Observe pattern",
+        "tags": ["patterns"],
+        "dependencies": [],
+        "category": "specialized"
+      },
+      {
+        "id": "plan-execute-pattern",
+        "name": "Plan-Execute Pattern",
+        "type": "context",
+        "path": ".opencode/patterns/plan-execute.md",
+        "description": "Plan-Execute pattern",
+        "tags": ["patterns"],
+        "dependencies": [],
+        "category": "specialized"
+      },
+      {
+        "id": "human-loop-pattern",
+        "name": "Human-in-Loop Pattern",
+        "type": "context",
+        "path": ".opencode/patterns/human-loop.md",
+        "description": "Human approval gates",
+        "tags": ["patterns"],
+        "dependencies": [],
+        "category": "specialized"
+      },
+      {
+        "id": "pattern-selector",
+        "name": "Pattern Selector",
+        "type": "context",
+        "path": ".opencode/patterns/pattern-selector.md",
+        "description": "Select execution pattern",
+        "tags": ["patterns"],
+        "dependencies": [],
+        "category": "specialized"
+      }
+    ],
+    "commands": [],
+    "tools": [],
+    "plugins": [],
+    "config": []
+  },
+  "profiles": {
+    "essential": {
+      "name": "Essential",
+      "description": "Core T-800 agent only - minimal footprint",
+      "components": ["agent:t800"]
+    },
+    "developer": {
+      "name": "Developer",
+      "description": "All 4 agents + skills + core context + subagents (recommended)",
+      "components": [
+        "agent:t800", "agent:t800-questioner", "agent:t800-planner", "agent:t800-executor",
+        "skill:t800-questioning", "skill:t800-planning", "skill:t800-execution",
+        "context:t800-standards", "context:t800-workflows",
+        "context:questioning-strategies", "context:planning-templates",
+        "subagent:contextscout"
+      ]
+    },
+    "business": {
+      "name": "Business",
+      "description": "Developer + learning module for self-improvement",
+      "components": [
+        "agent:t800", "agent:t800-questioner", "agent:t800-planner", "agent:t800-executor",
+        "skill:t800-questioning", "skill:t800-planning", "skill:t800-execution",
+        "context:t800-standards", "context:t800-workflows",
+        "context:questioning-strategies", "context:planning-templates",
+        "subagent:contextscout",
+        "context:reflection-engine", "context:feedback-processor", "context:pattern-extractor"
+      ]
+    },
+    "full": {
+      "name": "Full",
+      "description": "Business + telemetry + recovery + patterns modules",
+      "components": [
+        "agent:t800", "agent:t800-questioner", "agent:t800-planner", "agent:t800-executor",
+        "skill:t800-questioning", "skill:t800-planning", "skill:t800-execution", "skill:context7",
+        "context:t800-standards", "context:t800-workflows",
+        "context:questioning-strategies", "context:planning-templates",
+        "subagent:contextscout", "subagent:externalscout",
+        "context:reflection-engine", "context:feedback-processor", "context:pattern-extractor",
+        "context:trace-collector", "context:metrics-aggregator", "context:cost-tracker",
+        "context:exception-classifier", "context:handling-patterns", 
+        "context:escalation-manager", "context:state-recovery",
+        "context:react-pattern", "context:plan-execute-pattern",
+        "context:human-loop-pattern", "context:pattern-selector"
+      ]
+    },
+    "advanced": {
+      "name": "Advanced",
+      "description": "Full + all enhancement integration guides",
+      "components": [
+        "agent:t800", "agent:t800-questioner", "agent:t800-planner", "agent:t800-executor",
+        "skill:t800-questioning", "skill:t800-planning", "skill:t800-execution", "skill:context7",
+        "context:t800-standards", "context:t800-workflows",
+        "context:questioning-strategies", "context:planning-templates",
+        "subagent:contextscout", "subagent:externalscout",
+        "context:reflection-engine", "context:feedback-processor", "context:pattern-extractor",
+        "context:trace-collector", "context:metrics-aggregator", "context:cost-tracker",
+        "context:exception-classifier", "context:handling-patterns", 
+        "context:escalation-manager", "context:state-recovery",
+        "context:react-pattern", "context:plan-execute-pattern",
+        "context:human-loop-pattern", "context:pattern-selector"
+      ]
+    }
+  }
+}
