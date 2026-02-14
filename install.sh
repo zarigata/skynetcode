@@ -31,9 +31,9 @@ else
 fi
 
 # Configuration
-REPO_URL="https://github.com/zarigata/t800-ecosystem"
+REPO_URL="https://github.com/zarigata/skynetcode"
 BRANCH="${T800_BRANCH:-main}"
-RAW_URL="https://raw.githubusercontent.com/zarigata/t800-ecosystem/${BRANCH}"
+RAW_URL="https://raw.githubusercontent.com/zarigata/skynetcode/${BRANCH}"
 INSTALL_DIR="${T800_INSTALL_DIR:-.opencode}"
 TEMP_DIR="/tmp/t800-installer-$$"
 
