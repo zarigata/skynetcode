@@ -36,7 +36,7 @@
 
 **One-Liner Install:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/zarigata/t800-ecosystem/main/install.sh | bash -s developer
+curl -fsSL https://raw.githubusercontent.com/zarigata/skynetcode/main/install.sh | bash -s developer
 ```
 
 ### Installation Profiles
@@ -387,7 +387,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 **"I'll be back... with better code."**
 
-[![GitHub](https://img.shields.io/badge/GitHub-zarigata/t800--ecosystem-black?style=for-the-badge&logo=github)](https://github.com/zarigata/t800-ecosystem)
+[![GitHub](https://img.shields.io/badge/GitHub-zarigata/t800--ecosystem-black?style=for-the-badge&logo=github)](https://github.com/zarigata/skynetcode)
 [![Docs](https://img.shields.io/badge/Documentation-Available-blue?style=for-the-badge&logo=readthedocs)](docs/t800-README.md)
 [![Issues](https://img.shields.io/badge/Issues-Welcome-green?style=for-the-badge&logo=github)](.github/ISSUE_TEMPLATE)
 
