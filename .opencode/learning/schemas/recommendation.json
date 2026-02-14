@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Recommendation",
+  "description": "A schema for recommendations in the OpenCode learning system",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the recommendation",
+      "example": "rec_12345"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["process", "skill", "knowledge", "tool"],
+      "description": "The category of the recommendation",
+      "example": "process"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "The importance level of the recommendation",
+      "example": "high"
+    },
+    "description": {
+      "type": "string",
+      "description": "A clear and concise description of the recommendation",
+      "example": "Use atomic commits for better git history"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "The reasoning behind why this recommendation is being made",
+      "example": "Atomic commits make it easier to revert changes and understand the evolution of the codebase"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 datetime when the recommendation was created",
+      "example": "2026-02-14T12:00:00Z"
+    }
+  },
+  "required": ["id", "type", "priority", "description", "rationale", "created_at"]
+}

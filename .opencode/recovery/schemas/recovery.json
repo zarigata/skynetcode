@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Recovery Action Schema",
+  "description": "Schema for recovery action data",
+  "type": "object",
+  "required": ["action", "parameters"],
+  "properties": {
+    "recovery_id": {
+      "type": "string",
+      "description": "Unique recovery identifier"
+    },
+    "exception_id": {
+      "type": "string",
+      "description": "Linked exception ID"
+    },
+    "action": {
+      "type": "string",
+      "enum": ["retry", "fallback", "escalate"],
+      "description": "Recovery action type"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Parameters for recovery action"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Timeout for recovery action"
+    },
+    "fallback_action": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": ["retry", "fallback", "escalate", "abort"]
+        },
+        "parameters": {
+          "type": "object"
+        }
+      },
+      "description": "Action if primary recovery fails"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "success", "failed", "escalated"],
+      "description": "Recovery status"
+    },
+    "attempts": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of attempts made"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When recovery was initiated"
+    }
+  }
+}

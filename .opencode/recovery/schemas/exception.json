@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Exception Data Schema",
+  "description": "Schema for exception data in recovery system",
+  "type": "object",
+  "required": ["type", "message", "timestamp"],
+  "properties": {
+    "exception_id": {
+      "type": "string",
+      "description": "Unique exception identifier"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "TOOL_NOT_FOUND",
+        "TOOL_TIMEOUT",
+        "INVALID_INPUT",
+        "PERMISSION_DENIED",
+        "RESOURCE_NOT_FOUND",
+        "RATE_LIMITED",
+        "NETWORK_ERROR",
+        "STATE_ERROR",
+        "CONTEXT_OVERFLOW",
+        "UNEXPECTED_OUTPUT"
+      ],
+      "description": "Exception type from classifier"
+    },
+    "message": {
+      "type": "string",
+      "description": "Original error message"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When exception occurred"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Severity level"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "string"
+        },
+        "file_path": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "duration_ms": {
+          "type": "integer"
+        },
+        "error_code": {
+          "type": "string"
+        }
+      }
+    },
+    "stack_trace": {
+      "type": "string",
+      "description": "Stack trace if available"
+    },
+    "root_cause": {
+      "type": "string",
+      "description": "Identified root cause"
+    }
+  }
+}

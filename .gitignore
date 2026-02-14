@@ -1,0 +1,67 @@
+# .gitignore for T-800 Agent Ecosystem
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# OpenCode specific
+.opencode/sessions/
+.opencode/traces/
+.opencode/checkpoints/
+.opencode/learning/sessions/
+.opencode/learning/reflections/
+.opencode/telemetry/traces/
+.opencode/telemetry/metrics/
+.opencode/recovery/incidents/
+.opencode/recovery/checkpoints/
+.sisyphus/notepads/
+.sisyphus/boulder.json
+.sisyphus/state/
+
+# Development
+*.test.js
+*.spec.js.map
+
+# Package files
+*.tgz
+*.tar.gz
+*.zip

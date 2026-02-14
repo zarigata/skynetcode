@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Session Data",
+  "description": "Schema for session data recorded during OpenCode operations",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 datetime of the session",
+      "examples": ["2026-02-14T12:00:00Z"]
+    },
+    "task_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of tasks performed in the session",
+      "examples": [5]
+    },
+    "success_rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Success rate of tasks (0.0 to 1.0)",
+      "examples": [0.95]
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Duration of the session in milliseconds",
+      "examples": [3600000]
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of patterns identified during the session",
+      "examples": [["atomic_commits", "tdd_approach"]]
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Array of recommendations for future sessions",
+      "examples": [[{"type": "optimization", "description": "Use more specific grep patterns"}]]
+    }
+  },
+  "required": [
+    "timestamp",
+    "task_count",
+    "success_rate",
+    "duration_ms",
+    "patterns",
+    "recommendations"
+  ],
+  "additionalProperties": false
+}

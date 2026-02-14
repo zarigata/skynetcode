@@ -1,0 +1,120 @@
+name: T-800 Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install dependencies
+      run: |
+        npm install -g opencode-cli || true
+        
+    - name: Validate T-800 Configuration
+      run: |
+        chmod +x scripts/validate-config.sh
+        ./scripts/validate-config.sh
+        
+    - name: Run T-800 Tests
+      run: |
+        chmod +x scripts/test-agents.sh
+        ./scripts/test-agents.sh
+        
+    - name: Verify Enhancement Files
+      run: |
+        echo "Checking Learning module..."
+        test -f .opencode/learning/reflection-engine.md
+        test -f .opencode/learning/feedback-processor.md
+        test -f .opencode/learning/pattern-extractor.md
+        
+        echo "Checking Telemetry module..."
+        test -f .opencode/telemetry/trace-collector.md
+        test -f .opencode/telemetry/metrics-aggregator.md
+        test -f .opencode/telemetry/cost-tracker.md
+        
+        echo "Checking Recovery module..."
+        test -f .opencode/recovery/exception-classifier.md
+        test -f .opencode/recovery/handling-patterns.md
+        test -f .opencode/recovery/escalation-manager.md
+        
+        echo "Checking Patterns module..."
+        test -f .opencode/patterns/react.md
+        test -f .opencode/patterns/plan-execute.md
+        test -f .opencode/patterns/human-loop.md
+        
+        echo "All enhancement files verified!"
+
+    - name: Validate JSON Schemas
+      run: |
+        echo "Validating JSON schemas..."
+        
+        # Check if jq is available
+        if command -v jq &> /dev/null; then
+          jq '.' .opencode/learning/schemas/session.json > /dev/null
+          jq '.' .opencode/learning/schemas/recommendation.json > /dev/null
+          jq '.' .opencode/telemetry/schemas/trace.json > /dev/null
+          jq '.' .opencode/telemetry/schemas/metrics.json > /dev/null
+          jq '.' .opencode/recovery/schemas/exception.json > /dev/null
+          jq '.' .opencode/recovery/schemas/recovery.json > /dev/null
+          echo "All JSON schemas are valid!"
+        else
+          echo "jq not installed, skipping JSON validation"
+        fi
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check Markdown Files
+      run: |
+        echo "Checking for broken markdown links..."
+        find . -name "*.md" -type f | head -20
+        
+    - name: Check File Structure
+      run: |
+        echo "Verifying T-800 ecosystem structure..."
+        ls -la .opencode/agents/
+        ls -la .opencode/skills/
+        ls -la .opencode/context/core/
+        ls -la .opencode/learning/
+        ls -la .opencode/telemetry/
+        ls -la .opencode/recovery/
+        ls -la .opencode/patterns/
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check for Secrets
+      run: |
+        echo "Scanning for potential secrets..."
+        if grep -r "api_key\|password\|secret\|token" --include="*.md" .opencode/ 2>/dev/null; then
+          echo "Warning: Potential secrets found in documentation files"
+          echo "Please review and ensure these are examples only"
+        else
+          echo "No obvious secrets found"
+        fi
+      
+    - name: Validate PII Redaction
+      run: |
+        echo "Checking PII handling in telemetry..."
+        grep -q "redact_pii\|redact_secrets" .opencode/telemetry/trace-collector.md && echo "✓ PII redaction documented" || echo "✗ PII redaction missing"

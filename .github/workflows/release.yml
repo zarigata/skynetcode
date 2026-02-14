@@ -1,0 +1,82 @@
+name: T-800 Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Generate Release Notes
+      id: notes
+      run: |
+        echo "## T-800 Agent Ecosystem Release" > release_notes.md
+        echo "" >> release_notes.md
+        echo "### What's Changed" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "#### Agents" >> release_notes.md
+        echo "- Main T-800 Orchestrator" >> release_notes.md
+        echo "- t800-questioner: Eliminates ambiguity" >> release_notes.md
+        echo "- t800-planner: Creates comprehensive plans" >> release_notes.md
+        echo "- t800-executor: Executes non-stop" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "#### Enhancement Modules" >> release_notes.md
+        echo "- 🔄 Self-Improvement System (RISE-style)" >> release_notes.md
+        echo "- 📊 Telemetry & Observability" >> release_notes.md
+        echo "- 🛡️ Failure Recovery (SHIELDA-style)" >> release_notes.md
+        echo "- 🎯 Design Patterns (ReAct, Plan-Execute, HITL)" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "### Installation" >> release_notes.md
+        echo "\`\`\`bash" >> release_notes.md
+        echo "./scripts/install-t800.sh" >> release_notes.md
+        echo "\`\`\`" >> release_notes.md
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        cat release_notes.md >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Validate Version Files
+      run: |
+        echo "Validating T-800 ecosystem files..."
+        test -f .opencode/agents/t800.md
+        test -f scripts/install-t800.sh
+        test -f scripts/run-t800.sh
+        echo "All required files present!"
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Create Distribution Package
+      run: |
+        mkdir -p dist/t800-ecosystem
+        cp -r .opencode dist/t800-ecosystem/
+        cp -r scripts dist/t800-ecosystem/
+        cp -r docs dist/t800-ecosystem/ 2>/dev/null || true
+        cp -r tests dist/t800-ecosystem/ 2>/dev/null || true
+        cp README.md dist/t800-ecosystem/
+        cp LICENSE dist/t800-ecosystem/ 2>/dev/null || true
+        tar -czvf t800-ecosystem-${{ github.event.release.tag_name }}.tar.gz -C dist t800-ecosystem
+        
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./t800-ecosystem-${{ github.event.release.tag_name }}.tar.gz
+        asset_name: t800-ecosystem-${{ github.event.release.tag_name }}.tar.gz
+        asset_content_type: application/gzip
