@@ -73,7 +73,6 @@ check_bash_version() {
     local bash_version="${BASH_VERSION%%.*}"
     if [ "$bash_version" -lt 3 ]; then
         echo "Error: This script requires Bash 3.2 or higher"
-        echo "Current version: $BASH_VERSION"
         exit 1
     fi
 }
@@ -88,12 +87,10 @@ check_dependencies() {
     
     if [ ${#missing_deps[@]} -ne 0 ]; then
         print_error "Missing dependencies: ${missing_deps[*]}"
-        echo ""
         echo "Install with:"
         case "$PLATFORM" in
             macOS) echo "  brew install ${missing_deps[*]}" ;;
             Linux) echo "  sudo apt-get install ${missing_deps[*]}" ;;
-            Windows) echo "  Use Git Bash or WSL" ;;
         esac
         exit 1
     fi
@@ -110,30 +107,20 @@ fetch_registry() {
     
     mkdir -p "$TEMP_DIR"
     
-    # Try local registry first, then remote
-    if [ -f "./registry.json" ]; then
+    if curl -fsSL "$RAW_URL/registry.json" -o "$TEMP_DIR/registry.json" 2>/dev/null; then
+        print_success "Registry fetched from GitHub"
+    elif [ -f "./registry.json" ]; then
         cp "./registry.json" "$TEMP_DIR/registry.json"
         print_success "Using local registry"
     else
-        if ! curl -fsSL "$RAW_URL/registry.json" -o "$TEMP_DIR/registry.json"; then
-            print_error "Failed to fetch registry"
-            exit 1
-        fi
-        print_success "Registry fetched from GitHub"
+        print_error "Failed to fetch registry"
+        exit 1
     fi
 }
 
 get_profile_components() {
     local profile=$1
     jq -r ".profiles.${profile}.components[]?" "$TEMP_DIR/registry.json"
-}
-
-get_component_info() {
-    local component_id=$1
-    local component_type=$2
-    local registry_key="${component_type}s"
-    
-    jq -r ".components.${registry_key}[]? | select(.id == \"${component_id}\")" "$TEMP_DIR/registry.json"
 }
 
 #############################################################################
@@ -151,20 +138,20 @@ show_profile_menu() {
     echo -e "     Components: 1\n"
     
     echo -e "  ${BLUE}2) Developer${NC} ${GREEN}[Recommended]${NC}"
-    echo "     All 4 agents + skills + standard contexts"
-    echo -e "     Components: 14\n"
+    echo "     All 4 agents + skills + subagents"
+    echo -e "     Components: 12\n"
     
     echo -e "  ${CYAN}3) Business${NC}"
     echo "     Developer + learning module"
-    echo -e "     Components: 17\n"
+    echo -e "     Components: 15\n"
     
     echo -e "  ${MAGENTA}4) Full${NC}"
-    echo "     Business + telemetry + recovery + patterns"
-    echo -e "     Components: 27\n"
+    echo "     All modules"
+    echo -e "     Components: 28\n"
     
     echo -e "  ${YELLOW}5) Advanced${NC}"
-    echo "     Full + enhancement integration guides"
-    echo -e "     Components: 29\n"
+    echo "     Full + enhancements"
+    echo -e "     Components: 28\n"
     
     echo "  6) Exit"
     echo ""
@@ -188,24 +175,20 @@ show_profile_menu() {
 perform_installation() {
     print_step "Installing T-800 ecosystem..."
     
-    # Create base directory
     mkdir -p "$INSTALL_DIR"
     
-    # Get components for profile
     local components
     components=$(get_profile_components "$SELECTED_PROFILE")
     
     local installed=0
     local failed=0
     
-    # Process each component
     while IFS= read -r component; do
         [ -z "$component" ] && continue
         
         local type="${component%%:*}"
         local id="${component##*:}"
         
-        # Get component info
         local path
         path=$(jq -r ".components.${type}s[]? | select(.id == \"${id}\") | .path" "$TEMP_DIR/registry.json" 2>/dev/null)
         
@@ -218,17 +201,22 @@ perform_installation() {
         local dest="${INSTALL_DIR}/${path#.opencode/}"
         local dest_dir=$(dirname "$dest")
         
-        # Create directory
         mkdir -p "$dest_dir"
         
-        # Copy file
+        # Try local file first, then download from GitHub
         if [ -f "$path" ]; then
             cp "$path" "$dest"
-            print_success "Installed: $id"
+            print_success "Installed: $id (local)"
             installed=$((installed + 1))
         else
-            print_warning "File not found: $path"
-            failed=$((failed + 1))
+            local url="${RAW_URL}/${path}"
+            if curl -fsSL "$url" -o "$dest" 2>/dev/null; then
+                print_success "Installed: $id (downloaded)"
+                installed=$((installed + 1))
+            else
+                print_warning "Failed to download: $id"
+                failed=$((failed + 1))
+            fi
         fi
     done <<< "$components"
     
@@ -258,13 +246,8 @@ parse_args() {
                 shift
                 ;;
             --help|-h)
-                echo "Usage: $0 [PROFILE|--profile=PROFILE]"
-                echo ""
+                echo "Usage: $0 [PROFILE]"
                 echo "Profiles: essential, developer (default), business, full, advanced"
-                echo ""
-                echo "Examples:"
-                echo "  $0 developer        # Install developer profile"
-                echo "  $0 --profile=full   # Install full profile"
                 exit 0
                 ;;
             --dry-run)
@@ -287,22 +270,16 @@ parse_args() {
 
 main() {
     check_bash_version
-    
-    # Parse arguments
     parse_args "$@"
-    
     print_header
-    
     check_dependencies
     fetch_registry
     
-    # If no profile selected, show menu
     if [ -z "$SELECTED_PROFILE" ]; then
         show_profile_menu
     fi
     
     print_info "Installing profile: ${SELECTED_PROFILE}"
-    
     perform_installation
     
     echo ""
@@ -310,7 +287,6 @@ main() {
     echo ""
     echo "Quick start:"
     echo "  opencode --agent t800 \"Your project description\""
-    echo ""
 }
 
 main "$@"
