@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "T-800 Session Log - Session continuity and handoff management",
+  
+  "current_session": null,
+  
+  "sessions": [],
+  
+  "session_template": {
+    "session_id": "sess_t800_YYYYMMDD_HHMMSS",
+    "started_at": null,
+    "ended_at": null,
+    "status": "active|completed|paused|failed|timeout",
+    "trigger": "manual|scheduled|continuation|hook",
+    
+    "context": {
+      "project_name": null,
+      "initial_prompt": null,
+      "goals": [],
+      "constraints": []
+    },
+    
+    "progress": {
+      "tasks_total": 0,
+      "tasks_completed": 0,
+      "tasks_remaining": 0,
+      "tasks_failed": 0,
+      "iterations_used": 0,
+      "iterations_remaining": 0
+    },
+    
+    "handoff": {
+      "previous_session_id": null,
+      "next_session_id": null,
+      "handoff_notes": null,
+      "continuation_prompt": null,
+      "context_to_preserve": [],
+      "files_to_watch": []
+    },
+    
+    "resources": {
+      "token_usage": 0,
+      "api_calls": 0,
+      "files_read": 0,
+      "files_modified": 0,
+      "files_created": 0,
+      "commands_executed": 0
+    },
+    
+    "outcomes": {
+      "successes": [],
+      "failures": [],
+      "blockers": [],
+      "learnings": []
+    },
+    
+    "stop_reason": null
+  },
+  
+  "session_rules": {
+    "max_session_duration_minutes": 480,
+    "max_iterations_per_session": 100,
+    "auto_save_interval_iterations": 5,
+    "context_compaction_threshold_tokens": 150000,
+    "handoff_enabled": true
+  },
+  
+  "handoff_protocol": {
+    "on_stop": [
+      "Save current session state to session-log.json",
+      "Update progress.json with iteration details",
+      "Update AGENTS.md with any new learnings",
+      "Update task-state.json with current task status",
+      "Generate continuation prompt for next session"
+    ],
+    "on_resume": [
+      "Load previous session from session-log.json",
+      "Read AGENTS.md for accumulated knowledge",
+      "Read task-state.json for task queue",
+      "Read progress.json for iteration history",
+      "Continue from current_task or next incomplete task"
+    ]
+  }
+}

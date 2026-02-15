@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "T-800 Task State - Atomic task queue with verification criteria",
+  
+  "meta": {
+    "created": null,
+    "last_updated": null,
+    "project_name": null,
+    "project_goal": null,
+    "total_iterations": 0,
+    "max_iterations": 25,
+    "status": "idle"
+  },
+  
+  "quality_gates": {
+    "typecheck": {
+      "command": "npm run typecheck",
+      "enabled": true,
+      "required": true
+    },
+    "lint": {
+      "command": "npm run lint",
+      "enabled": true,
+      "required": true
+    },
+    "test": {
+      "command": "npm test",
+      "enabled": true,
+      "required": true
+    },
+    "build": {
+      "command": "npm run build",
+      "enabled": true,
+      "required": false
+    }
+  },
+  
+  "tasks": [],
+  
+  "task_template": {
+    "id": "task-NNN",
+    "story": "As a [user], I want [feature] so that [benefit]",
+    "description": "Detailed implementation description",
+    "acceptance_criteria": [
+      "Given [context], when [action], then [outcome]",
+      "Test case: [specific test expectation]"
+    ],
+    "files_to_modify": [],
+    "files_to_create": [],
+    "dependencies": [],
+    "passes": false,
+    "attempts": 0,
+    "max_attempts": 3,
+    "last_attempt": null,
+    "last_error": null,
+    "verification_results": {
+      "typecheck": null,
+      "lint": null,
+      "test": null,
+      "build": null
+    },
+    "notes": []
+  },
+  
+  "current_task": null,
+  "completed_tasks": [],
+  "failed_tasks": [],
+  "blocked_tasks": []
+}

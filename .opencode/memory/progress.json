@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "T-800 Progress Log - Iteration history and learnings",
+  
+  "project": {
+    "name": null,
+    "started": null,
+    "last_activity": null
+  },
+  
+  "statistics": {
+    "total_iterations": 0,
+    "total_tasks_completed": 0,
+    "total_errors_encountered": 0,
+    "total_errors_resolved": 0,
+    "average_iterations_per_task": 0,
+    "success_rate": 0
+  },
+  
+  "iterations": [],
+  
+  "iteration_template": {
+    "iteration_number": 0,
+    "timestamp_start": null,
+    "timestamp_end": null,
+    "task_id": null,
+    "task_story": null,
+    "status": "in_progress|completed|failed|blocked",
+    "actions_taken": [],
+    "files_modified": [],
+    "files_created": [],
+    "quality_checks": {
+      "typecheck": null,
+      "lint": null,
+      "test": null,
+      "build": null
+    },
+    "errors": [],
+    "error_resolutions": [],
+    "learnings": [],
+    "patterns_discovered": [],
+    "token_usage": 0,
+    "duration_seconds": 0
+  },
+  
+  "patterns_learned": [],
+  
+  "pattern_template": {
+    "pattern_id": null,
+    "discovered_at": null,
+    "category": "code|architecture|testing|deployment|other",
+    "description": null,
+    "context": null,
+    "applicability": null,
+    "examples": [],
+    "count_applied": 0
+  },
+  
+  "errors_resolved": [],
+  
+  "error_template": {
+    "error_id": null,
+    "first_seen": null,
+    "resolved_at": null,
+    "error_type": null,
+    "error_message": null,
+    "root_cause": null,
+    "resolution": null,
+    "prevention_strategy": null,
+    "count_occurred": 0
+  }
+}
