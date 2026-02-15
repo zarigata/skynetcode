@@ -1,0 +1,93 @@
+{
+  "enabled": true,
+  "check_interval_seconds": 30,
+  "stuck_threshold_seconds": 120,
+  "error_threshold_count": 3,
+  "loop_detection_window": 10,
+  "loop_similarity_threshold": 0.9,
+  "context_overflow_threshold": 180000,
+  "max_recovery_attempts": 3,
+  "recovery_strategies": {
+    "gentle_nudge": {
+      "after_seconds": 120,
+      "max_attempts": 2,
+      "description": "Inject continuation prompt to unstick agent"
+    },
+    "context_refresh": {
+      "after_seconds": 300,
+      "max_attempts": 1,
+      "description": "Save state and restart with fresh context"
+    },
+    "full_restart": {
+      "after_seconds": 600,
+      "max_attempts": 1,
+      "description": "Complete session reset with memory preservation"
+    }
+  },
+  "notifications": {
+    "on_stuck": true,
+    "on_error": true,
+    "on_loop": true,
+    "on_restart": true,
+    "log_file": ".opencode/memory/watchdog.log"
+  },
+  "error_patterns": [
+    {
+      "pattern": "<action>.*<actio>",
+      "type": "malformed_xml",
+      "severity": "high"
+    },
+    {
+      "pattern": "tool not found",
+      "type": "tool_error",
+      "severity": "medium"
+    },
+    {
+      "pattern": "invalid parameters",
+      "type": "parameter_error",
+      "severity": "medium"
+    },
+    {
+      "pattern": "context_length_exceeded",
+      "type": "context_overflow",
+      "severity": "critical"
+    },
+    {
+      "pattern": "rate limit",
+      "type": "rate_limit",
+      "severity": "low"
+    },
+    {
+      "pattern": "timeout",
+      "type": "timeout",
+      "severity": "medium"
+    },
+    {
+      "pattern": "session.*hang",
+      "type": "session_hang",
+      "severity": "high"
+    }
+  ],
+  "loop_patterns": {
+    "identical_tool_calls": {
+      "window": 10,
+      "threshold": 3,
+      "description": "Same tool called with identical args multiple times"
+    },
+    "identical_errors": {
+      "window": 10,
+      "threshold": 3,
+      "description": "Same error message repeated multiple times"
+    },
+    "file_oscillation": {
+      "window": 5,
+      "threshold": 2,
+      "description": "File edited then reverted in cycle"
+    },
+    "state_oscillation": {
+      "window": 10,
+      "threshold": 3,
+      "description": "Task state oscillating between same states"
+    }
+  }
+}
