@@ -14,7 +14,7 @@
 **"Think Before You Build"**
 
 [![OpenCode](https://img.shields.io/badge/OpenCode-Agent-Ecosystem-blue?style=for-the-badge&logo=robot)](https://github.com/opencode)
-[![Version](https://img.shields.io/badge/Version-2.0.0-green?style=for-the-badge)](https://github.com)
+[![Version](https://img.shields.io/badge/Version-3.0.0-green?style=for-the-badge)](https://github.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
 
@@ -94,6 +94,19 @@ opencode --agent t800 "Create a todo list application"
 
 ```
                     ┌─────────────────────────────────────────┐
+                    │            PRE-AGENT (NEW!)              │
+                    │         Task Optimization Layer          │
+                    │                                         │
+                    │  ┌─────────────────────────────────┐    │
+                    │  │ CLASSIFY → RETRIEVE → OPTIMIZE  │    │
+                    │  │         → ROUTE                 │    │
+                    │  └─────────────────────────────────┘    │
+                    │                                         │
+                    │  Output: Optimized Context + Model      │
+                    └───────────────────┬─────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────────┐
                     │              T-800 MAIN                  │
                     │         (Primary Orchestrator)           │
                     │                                         │
@@ -114,6 +127,23 @@ opencode --agent t800 "Create a todo list application"
           │ Ambiguity       │ │ Complete Plans  │ │ Non-Stop        │
           └─────────────────┘ └─────────────────┘ └─────────────────┘
 ```
+
+### 🚀 Pre-Agent System (NEW in v3.0)
+
+The Pre-Agent runs **before** T-800 starts working, ensuring optimal performance:
+
+| Stage | Purpose | Output |
+|-------|---------|--------|
+| **CLASSIFY** | Analyze task type, domain, complexity | Task profile |
+| **RETRIEVE** | Get knowledge from AGENTS.md, codebase, Context7 | Relevant patterns |
+| **OPTIMIZE** | Compress to fit token budget | Optimized context |
+| **ROUTE** | Select best model for task | Model selection |
+
+**Benefits:**
+- ⚡ **Faster Start**: No cold-start, context pre-loaded
+- 🎯 **Better Accuracy**: Relevant patterns identified upfront
+- ⚠️ **Fewer Errors**: Gotchas known before coding starts
+- 💰 **Cost Efficient**: Right-sized model for task complexity
 
 ---
 
@@ -188,14 +218,26 @@ Patterns:
 .opencode/
 ├── agents/                    # Agent configurations
 │   ├── t800.md               # Main orchestrator
+│   ├── t800-pre-agent.md     # Pre-Agent (task optimizer)
 │   ├── t800-questioner.md    # Questioning subagent
 │   ├── t800-planner.md       # Planning subagent
 │   └── t800-executor.md      # Execution subagent
 │
 ├── skills/                    # Agent skills
+│   ├── t800-pre-agent.md     # Pre-Agent skill
 │   ├── t800-questioning.md   # Deep questioning
 │   ├── t800-planning.md      # Comprehensive planning
 │   └── t800-execution.md     # Non-stop execution
+│
+├── pre-agent/                 # Pre-Agent modules (NEW!)
+│   ├── orchestrator.md       # Main orchestration
+│   ├── task-classifier.md    # Task classification
+│   ├── knowledge-retriever.md # Knowledge retrieval
+│   ├── context-optimizer.md  # Context optimization
+│   └── model-router.md       # Model selection
+│
+├── models/                    # Model integrations (NEW!)
+│   └── glm-integration.md    # GLM (Zhipu AI) integration
 │
 ├── context/                   # Context & standards
 │   ├── core/
@@ -294,15 +336,64 @@ Once approved, T-800 executes:
 ╔══════════════════════════════════════════════════════════════╗
 ║                    T-800 ECOSYSTEM STATS                       ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Agents          │  4  │  Main + 3 Subagents                   ║
-║  Skills          │  3  │  Questioning, Planning, Execution     ║
-║  Context Files   │  4  │  Standards, Workflows, Strategies     ║
-║  Enhancement Mod │  4  │  Learning, Telemetry, Recovery, Pat   ║
-║  Total Files     │  56 │  7,245+ lines of documentation        ║
-║  Exception Types │ 10  │  With 3 recovery options each         ║
-║  Design Patterns │  3  │  ReAct, Plan-Exec, HITL               ║
+║  Agents          │  5  │  Main + Pre-Agent + 3 Subagents      ║
+║  Skills          │  4  │  Pre-Agent, Questioning, Planning... ║
+║  Pre-Agent Mods  │  5  │  Classifier, Retriever, Optimizer... ║
+║  Context Files   │  4  │  Standards, Workflows, Strategies    ║
+║  Enhancement Mod │  4  │  Learning, Telemetry, Recovery, Pat  ║
+║  Model Integr.   │  9  │  Claude, GPT, GLM, Haiku...          ║
+║  Total Files     │  70+│  12,000+ lines of documentation      ║
+║  Exception Types │ 10  │  With 3 recovery options each        ║
+║  Design Patterns │  3  │  ReAct, Plan-Exec, HITL              ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
+
+---
+
+## 🧠 Supported Models
+
+### Anthropic Claude (Default)
+| Model | Best For | Cost Tier |
+|-------|----------|-----------|
+| Claude Opus 4 | Complex reasoning, architecture | Premium |
+| Claude Sonnet 4 | Code generation, balanced tasks | Standard |
+| Claude Haiku | Simple tasks, quick iterations | Economy |
+
+### GLM / Zhipu AI (NEW!)
+| Model | Context | Best For | Cost Tier |
+|-------|---------|----------|-----------|
+| GLM-5 | 200K | Agentic engineering | Standard |
+| GLM-4.7 | 200K | Coding (SOTA on LiveCodeBench) | Standard |
+| GLM-4.6 | 200K | Agent tasks, tool use | Standard |
+| GLM-4.5-Air | 128K | Cost-efficient | Economy |
+| GLM-4.5-Flash | 128K | **FREE tier** | Free |
+
+### OpenAI GPT
+| Model | Best For | Cost Tier |
+|-------|----------|-----------|
+| GPT-4-Turbo | Broad knowledge | Premium |
+| GPT-4 | Reliable reasoning | Premium |
+| GPT-3.5-Turbo | Speed, efficiency | Economy |
+
+<details>
+<summary>⚙️ Configure GLM Models</summary>
+
+```bash
+# Set environment variable
+export ZHIPU_API_KEY="your-api-key"
+export GLM_ENABLED=true
+
+# Use in OpenCode
+opencode --agent t800 --model zhipu/glm-4.7 "Build a REST API"
+```
+
+GLM models feature:
+- ✅ **Thinking Mode** - Native chain-of-thought
+- ✅ **Open Source** - MIT license
+- ✅ **Cost Efficient** - 30% more token efficient
+- ✅ **Chinese Optimized** - Native Chinese support
+
+</details>
 
 ---
 
@@ -328,10 +419,12 @@ Once approved, T-800 executes:
 | Document | Description |
 |----------|-------------|
 | [Architecture](docs/t800-ARCHITECTURE.md) | System architecture overview |
+| [Pre-Agent System](docs/t800-PRE-AGENT.md) | Task optimization layer (NEW!) |
 | [Usage Guide](docs/t800-USAGE.md) | How to use T-800 |
 | [Testing Guide](docs/t800-TESTING.md) | Testing documentation |
 | [Examples](docs/t800-EXAMPLES.md) | Example workflows |
 | [Enhancements](docs/t800-ENHANCEMENTS.md) | Enhancement modules |
+| [GLM Integration](.opencode/models/glm-integration.md) | Zhipu AI models (NEW!) |
 
 ---
 

@@ -5,7 +5,8 @@
 
 ## Description
 Non-stop execution capability for implementing approved plans without interruption. 
-Now enhanced with **Self-Improvement Engine** for RISE-style recursive introspection.
+Now enhanced with **Self-Improvement Engine** for RISE-style recursive introspection
+and **Pre-Agent Integration** for optimal context loading.
 
 ## When to Use
 Use this skill when:
@@ -16,6 +17,73 @@ Use this skill when:
 
 ## Core Principle
 **DO NOT STOP. DO NOT ASK. JUST BUILD. LEARN. IMPROVE.**
+
+---
+
+## ▓▒░ PRE-AGENT INTEGRATION ░▒▓
+
+### Before Starting Execution
+
+Check if Pre-Agent has provided intelligence:
+
+```yaml
+# Look for Pre-Agent output in conversation context
+pre_agent_check:
+  - Is there a "task_profile" section?
+  - Are there "gotchas" listed?
+  - Are there "patterns" recommended?
+  - Is there a "model_selection"?
+
+# If Pre-Agent output exists:
+apply_intelligence:
+  gotchas:
+    - Add to mental checklist to AVOID
+    - Include in code comments if relevant
+    
+  patterns:
+    - Use recommended patterns as default
+    - Reference example files if provided
+    
+  model_selection:
+    - Note if different model suggested
+    - Consider model's strengths for this task type
+    
+  priority_files:
+    - Check these files FIRST
+    - Understand existing patterns before creating new
+```
+
+### Pre-Agent Context Usage
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                     USING PRE-AGENT INTELLIGENCE                                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│   BEFORE CODING:                                                                │
+│   ┌─────────────────────────────────────────────────────────────────────────┐  │
+│   │ 1. Check for Pre-Agent gotchas → Add to avoidance list                   │  │
+│   │ 2. Check for Pre-Agent patterns → Apply to implementation                │  │
+│   │ 3. Check for Pre-Agent examples → Reference for structure                │  │
+│   │ 4. Check for Pre-Agent files → Read before modifying                     │  │
+│   └─────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+│   DURING CODING:                                                                │
+│   ┌─────────────────────────────────────────────────────────────────────────┐  │
+│   │ - Reference Pre-Agent patterns when stuck                                │  │
+│   │ - Avoid Pre-Agent identified gotchas                                     │  │
+│   │ - Follow Pre-Agent suggested approach                                    │  │
+│   └─────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+│   AFTER COMPLETION:                                                             │
+│   ┌─────────────────────────────────────────────────────────────────────────┐  │
+│   │ - Update AGENTS.md with new learnings                                    │  │
+│   │ - Add new patterns discovered                                            │  │
+│   │ - Note any gotchas encountered                                           │  │
+│   └─────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 

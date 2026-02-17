@@ -15,6 +15,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
                        CHANGELOG
 ```
 
+## [3.0.0] - 2025-02-17
+
+### 🚀 Major Release - Pre-Agent System & GLM Integration
+
+This release adds the Pre-Agent optimization layer and GLM model integration for maximum T-800 autonomy.
+
+### Added
+
+#### 🧠 Pre-Agent System (Task Optimization Layer)
+- **Task Classifier** - Analyzes task type, domain, and complexity
+- **Knowledge Retriever** - Fetches from AGENTS.md, codebase, Context7
+- **Context Optimizer** - Compresses to fit token budget (balanced strategy)
+- **Model Router** - Selects optimal model based on task needs
+- **Full Auto Mode** - No user interaction required
+
+#### 🤖 GLM Model Integration (Zhipu AI / Z.ai)
+- **GLM-5** - 744B params, agentic engineering focus, $1.00/1M input
+- **GLM-4.7** - SOTA coding (surpasses Claude Sonnet 4.5 on LiveCodeBench)
+- **GLM-4.6** - 200K context, strong tool use
+- **GLM-4.5-Air** - Cost-efficient, 106B params
+- **GLM-4.5-Flash** - FREE tier with good performance
+- **Thinking Mode** - Native chain-of-thought reasoning
+- **OpenAI-Compatible API** - Drop-in replacement for OpenAI SDK
+- **MIT License** - Open source, can be self-hosted
+
+#### 📚 Documentation
+- Pre-Agent architecture documentation
+- GLM integration guide with code examples
+- Prompt engineering best practices for GLM
+- Model routing matrix updated
+
+### Changed
+- T-800 main agent now checks for Pre-Agent intelligence on start
+- Execution skill updated with Pre-Agent hooks
+- Model router expanded with GLM options
+
+### Stats
+- **70+ total files** in ecosystem
+- **12,000+ lines** of documentation
+- **5 Pre-Agent modules** added
+- **5 GLM models** integrated
+- **9 total models** supported
+
+---
+
 ## [2.0.0] - 2024-02-14
 
 ### 🎉 Major Release - Enhancement Ecosystem
@@ -119,6 +164,7 @@ This release adds four major enhancement modules to the T-800 ecosystem.
 
 | Version | Date | Files | Lines | Description |
 |---------|------|-------|-------|-------------|
+| 3.0.0 | 2025-02-17 | 70+ | 12,000+ | Pre-Agent System & GLM Integration |
 | 2.0.0 | 2024-02-14 | 56 | 7,245 | Enhancement Ecosystem |
 | 1.0.0 | 2024-01-15 | 30 | 3,500 | Initial Release |
 
