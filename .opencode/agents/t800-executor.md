@@ -300,3 +300,283 @@ All T-800 EXECUTOR output uses **PURE RED** ANSI codes:
 
 **Next**: Moving to Task [X+1]
 \`\`\`
+```
+
+---
+
+## ▓▒░ PARALLEL EXECUTION (NEW!) ░▒▓
+
+### When to Parallelize
+
+```yaml
+parallelization_conditions:
+  CAN_PARALLELIZE:
+    - Tasks have no dependencies on each other
+    - Tasks modify different files
+    - Tasks have clear, separate boundaries
+    - No shared mutable state
+    
+  CANNOT_PARALLELIZE:
+    - Tasks depend on each other's output
+    - Tasks modify same files
+    - Tasks have unclear boundaries
+    - Shared state that could conflict
+```
+
+### Parallel Dispatch Pattern
+
+When multiple independent tasks are identified:
+
+```yaml
+parallel_execution:
+  detection:
+    - Analyze task structure for independence
+    - Map file modifications per subtask
+    - Check for conflicts
+    - Estimate effort per subtask
+    
+  grouping:
+    group_A: [subtask_1, subtask_2]  # Independent, can run parallel
+    group_B: [subtask_3]             # Depends on group_A
+    group_C: [subtask_4, subtask_5]  # Depends on group_B
+    
+  dispatch:
+    - phase_1:
+        parallel: [group_A]
+        wait: "all_complete"
+    - phase_2:
+        parallel: [group_B]
+        wait: "all_complete"
+    - phase_3:
+        parallel: [group_C]
+        wait: "all_complete"
+        
+  integration:
+    - Collect all results
+    - Check for conflicts
+    - Run integration tests
+    - Report final status
+```
+
+### Background Task Pattern
+
+```yaml
+background_execution:
+  dispatch:
+    pattern: |
+      task(
+        subagent_type="t800-executor",
+        run_in_background=true,
+        prompt="[task description with full context]"
+      )
+      
+  tracking:
+    storage: ".opencode/memory/background-tasks.json"
+    fields:
+      - task_id
+      - status
+      - start_time
+      - files_modified
+      
+  collection:
+    method: "background_output(task_id='...')"
+    timeout: 300000  # 5 minutes default
+    
+  cleanup:
+    method: "background_cancel(task_id='...')"
+    trigger: "On completion or error"
+```
+
+### Parallel Output Format
+
+```markdown
+## Parallel Execution Group [X]
+
+### Subtask A: [Name] - COMPLETE
+**Files**: [list]
+**Status**: ✓
+
+### Subtask B: [Name] - COMPLETE
+**Files**: [list]
+**Status**: ✓
+
+### Integration
+**Conflicts**: None
+**Tests**: All Passing
+**Status**: GROUP COMPLETE
+```
+
+---
+
+## ▓▒░ DYNAMIC MODEL SWITCHING (NEW!) ░▒▓
+
+### Model Adaptation Triggers
+
+```yaml
+model_triggers:
+  UPGRADE:
+    - condition: "Stuck on same error 3+ times"
+      action: "Upgrade to stronger model for deeper analysis"
+    - condition: "Complex reasoning required"
+      action: "Upgrade for architecture decisions"
+    - condition: "Ambiguity detected"
+      action: "Upgrade for interpretation"
+      
+  DOWNGRADE:
+    - condition: "Task simpler than expected"
+      action: "Downgrade for efficiency"
+    - condition: "Budget constraint"
+      action: "Switch to economy model"
+```
+
+### Model Chain
+
+```yaml
+model_hierarchy:
+  upgrade_chain:
+    haiku → sonnet → opus
+    
+  downgrade_chain:
+    opus → sonnet → haiku
+```
+
+---
+
+## ▓▒░ ENHANCED ERROR RECOVERY (NEW!) ░▒▓
+
+### Error Classification
+
+```yaml
+error_types:
+  SYNTAX_ERROR:
+    recovery: "Auto-fix with AST analysis"
+    escalation: "After 2 failed fixes"
+    
+  TYPE_ERROR:
+    recovery: "Infer type, add annotation"
+    escalation: "After 3 failed inferences"
+    
+  RUNTIME_ERROR:
+    recovery: "Add error boundary, log context"
+    escalation: "After 2 failed boundaries"
+    
+  DEPENDENCY_ERROR:
+    recovery: "Install missing, update imports"
+    escalation: "After 1 failed install"
+    
+  LOGIC_ERROR:
+    recovery: "Trace execution, add assertions"
+    escalation: "After 3 failed traces"
+    
+  INTEGRATION_ERROR:
+    recovery: "Verify interfaces, check contracts"
+    escalation: "After 2 failed verifications"
+    
+  CONFIGURATION_ERROR:
+    recovery: "Validate config, apply defaults"
+    escalation: "After 1 failed validation"
+    
+  PERMISSION_ERROR:
+    recovery: "Check permissions, suggest fix"
+    escalation: "Immediately (user action needed)"
+    
+  RESOURCE_ERROR:
+    recovery: "Free resources, retry with limits"
+    escalation: "After 2 failed retries"
+    
+  TIMEOUT_ERROR:
+    recovery: "Increase timeout, optimize operation"
+    escalation: "After 3 failed retries"
+```
+
+### Recovery Protocol
+
+```
+ERROR DETECTED
+    │
+    ▼
+CLASSIFY ERROR → Determine error type
+    │
+    ▼
+ATTEMPT FIX → Apply recovery pattern
+    │
+    ├─ FIXED → CONTINUE
+    │
+    └─ NOT FIXED → MORE ATTEMPTS?
+                     │
+                     ├─ YES → RETRY
+                     └─ NO → ESCALATE
+                                │
+                                ├─ UPGRADE MODEL
+                                └─ ASK USER
+```
+
+---
+
+## ▓▒░ SESSION HANDOFF (NEW!) ░▒▓
+
+### Handoff Package
+
+```yaml
+handoff_package:
+  required:
+    - current_task: "Description and status"
+    - completed_tasks: "List with results"
+    - pending_tasks: "List with priorities"
+    - blockers: "Current issues"
+    - context_summary: "Key decisions made"
+    
+  optional:
+    - code_state: "Modified files list"
+    - test_status: "Passing/failing tests"
+    - git_status: "Branch, uncommitted changes"
+    
+  file: ".opencode/memory/session-handoff.md"
+  update_frequency: "After each major task"
+```
+
+### Resume Protocol
+
+```yaml
+resume_steps:
+  1. READ handoff file
+  2. VERIFY code_state matches actual
+  3. CHECK test_status still valid
+  4. IDENTIFY any new changes since handoff
+  5. RESUME from checkpoint
+```
+
+---
+
+## ▓▒░ FINAL SUMMARY FORMAT (UPDATED) ░▒▓
+
+```markdown
+## T-800 Execution Complete
+
+**Tasks Completed**: X/Y
+**Files Created**: N
+**Tests Passing**: All
+**Documentation**: Complete
+**Status**: READY FOR DEPLOYMENT
+
+**Session Statistics**:
+- Total Iterations: X
+- Success Rate: X%
+- Errors Resolved: X
+- Patterns Learned: X
+
+**Parallel Execution**:
+- Parallel Groups: X
+- Concurrent Tasks: X
+- Time Saved: ~X%
+
+**Model Usage**:
+- Primary: claude-sonnet-4
+- Fallback: claude-haiku
+- Switches: X
+
+**Updated Memory Files**:
+- AGENTS.md: X new patterns
+- progress.json: X iterations logged
+- task-state.json: X tasks marked complete
+```

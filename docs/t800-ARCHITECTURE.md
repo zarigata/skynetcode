@@ -223,3 +223,229 @@ T-800 can be extended by:
 2. **Adding new skills** in `.opencode/skills/`
 3. **Modifying workflows** in `.opencode/workflows/`
 4. **Adding new commands** in `.opencode/commands/`
+5. **Adding new modules** in `.opencode/orchestration/`
+6. **Updating memory schemas** in `.opencode/memory/`
+
+---
+
+## NEW: Dynamic Orchestration Layer
+
+The orchestration layer manages intelligent dispatching and coordination:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    DYNAMIC ORCHESTRATION ENGINE                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   ┌─────────────────────────────────────────────────────────────┐      │
+│   │                    DISPATCH MATRIX                            │      │
+│   │                                                             │      │
+│   │  Task Type → Subagent Mapping                               │      │
+│   │  ├─ clarification_needed → t800-questioner                  │      │
+│   │  ├─ planning_needed → t800-planner                          │      │
+│   │  └─ execution_ready → t800-executor                         │      │
+│   └─────────────────────────────────────────────────────────────┘      │
+│                                                                         │
+│   ┌─────────────────────────────────────────────────────────────┐      │
+│   │                 PARALLEL EXECUTION                           │      │
+│   │                                                             │      │
+│   │  When tasks are independent:                                │      │
+│   │  ├─ Analyze task structure                                  │      │
+│   │  ├─ Identify parallelizable groups                          │      │
+│   │  ├─ Dispatch in parallel                                    │      │
+│   │  └─ Merge results                                            │      │
+│   └─────────────────────────────────────────────────────────────┘      │
+│                                                                         │
+│   ┌─────────────────────────────────────────────────────────────┐      │
+│   │                 ADAPTIVE STRATEGY                            │      │
+│   │                                                             │      │
+│   │  Dynamic adjustments:                                        │      │
+│   │  ├─ Model switching (upgrade/downgrade)                     │      │
+│   │  ├─ Strategy adaptation                                      │      │
+│   │  └─ Resource optimization                                    │      │
+│   └─────────────────────────────────────────────────────────────┘      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## NEW: Adaptive Learning System
+
+T-800 learns from every execution through the memory system:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      ADAPTIVE LEARNING ENGINE                           │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   PATTERN THETA: "What patterns emerged?"                              │
+│   ├── Identify reusable code structures                                │
+│   ├── Document successful approaches                                   │
+│   └── Update AGENTS.md                                                 │
+│                                                                         │
+│   PATTERN IOTA: "How can I optimize?"                                  │
+│   ├── Analyze token usage patterns                                     │
+│   ├── Find parallelizable tasks                                        │
+│   └── Generate optimization recommendations                            │
+│                                                                         │
+│   PATTERN KAPPA: "What should I remember?"                             │
+│   ├── Extract new patterns discovered                                  │
+│   ├── Record gotchas encountered                                       │
+│   └── Update memory files                                              │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## NEW: Enhanced Error Recovery
+
+T-800 implements SHIELDA-style error handling:
+
+```yaml
+error_classification:
+  SYNTAX_ERROR:
+    recovery: "Auto-fix with AST analysis"
+    escalation: "After 2 failed fixes"
+    
+  TYPE_ERROR:
+    recovery: "Infer type, add annotation"
+    escalation: "After 3 failed inferences"
+    
+  RUNTIME_ERROR:
+    recovery: "Add error boundary, log context"
+    escalation: "After 2 failed boundaries"
+    
+  DEPENDENCY_ERROR:
+    recovery: "Install missing, update imports"
+    escalation: "After 1 failed install"
+    
+  LOGIC_ERROR:
+    recovery: "Trace execution, add assertions"
+    escalation: "After 3 failed traces"
+    
+  INTEGRATION_ERROR:
+    recovery: "Verify interfaces, check contracts"
+    escalation: "After 2 failed verifications"
+    
+  CONFIGURATION_ERROR:
+    recovery: "Validate config, apply defaults"
+    escalation: "After 1 failed validation"
+    
+  PERMISSION_ERROR:
+    recovery: "Check permissions, suggest fix"
+    escalation: "Immediately (user action needed)"
+    
+  RESOURCE_ERROR:
+    recovery: "Free resources, retry with limits"
+    escalation: "After 2 failed retries"
+    
+  TIMEOUT_ERROR:
+    recovery: "Increase timeout, optimize operation"
+    escalation: "After 3 failed retries"
+```
+
+---
+
+## NEW: Session Continuity
+
+T-800 maintains state across sessions:
+
+```yaml
+session_management:
+  handoff_package:
+    required:
+      - current_task: "Description and status"
+      - completed_tasks: "List with results"
+      - pending_tasks: "List with priorities"
+      - blockers: "Current issues"
+      - context_summary: "Key decisions made"
+      
+  file: ".opencode/memory/session-handoff.md"
+  update_frequency: "After each major task"
+```
+
+---
+
+## NEW: Real-Time Progress Tracking
+
+```
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         T-800 EXECUTION DASHBOARD                             ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                               ║
+║  PHASE: [THINK|QUESTION|PLAN|EXECUTE|ADAPT]                                   ║
+║  STATUS: [RUNNING|WAITING|COMPLETE|ERROR]                                     ║
+║                                                                               ║
+╠───────────────────────────────────────────────────────────────────────────────╣
+║                                                                               ║
+║  TASKS:                                                                       ║
+║  ├─ [✓] Task 1: Setup project structure                                       ║
+║  ├─ [✓] Task 2: Implement authentication                                      ║
+║  ├─ [▶] Task 3: Build API endpoints (IN PROGRESS)                             ║
+║  ├─ [○] Task 4: Write tests                                                   ║
+║  └─ [○] Task 5: Documentation                                                 ║
+║                                                                               ║
+╠───────────────────────────────────────────────────────────────────────────────╣
+║                                                                               ║
+║  METRICS:                                                                     ║
+║  ├─ Progress: ████████░░░░░░░░ 40%                                            ║
+║  ├─ Files: 12 created, 3 modified                                             ║
+║  ├─ Tests: 15 passing, 0 failing                                              ║
+║  ├─ Tokens: 45,000 / 200,000                                                  ║
+║  └─ Time: 15m elapsed, ~25m remaining                                         ║
+║                                                                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## Updated File Structure
+
+```
+.opencode/
+├── agents/                    # Agent configurations
+│   ├── t800.md               # Main orchestrator (UPDATED)
+│   ├── t800-pre-agent.md     # Pre-Agent (UPDATED with parallel analysis)
+│   ├── t800-questioner.md    # Questioning subagent
+│   ├── t800-planner.md       # Planning subagent
+│   └── t800-executor.md      # Execution subagent (UPDATED with parallel support)
+│
+├── orchestration/             # NEW: Orchestration modules
+│   └── dynamic-orchestrator.md  # Intelligent dispatch & coordination
+│
+├── skills/                    # Agent skills
+│   ├── t800-pre-agent.md     # Pre-Agent skill
+│   ├── t800-questioning.md   # Deep questioning
+│   ├── t800-planning.md      # Comprehensive planning
+│   └── t800-execution.md     # Non-stop execution
+│
+├── pre-agent/                 # Pre-Agent modules
+│   ├── orchestrator.md       # Main orchestration
+│   ├── task-classifier.md    # Task classification
+│   ├── knowledge-retriever.md # Knowledge retrieval
+│   ├── context-optimizer.md  # Context optimization
+│   └── model-router.md       # Model selection
+│
+├── memory/                    # Memory system (UPDATED)
+│   ├── AGENTS.md             # Accumulated knowledge
+│   ├── system.md             # Memory system architecture
+│   ├── task-state.json       # Task queue
+│   ├── progress.json         # Iteration history
+│   └── session-log.json      # Session continuity
+│
+├── context/                   # Context & standards
+│   ├── core/
+│   │   ├── t800-standards.md
+│   │   └── t800-workflows.md
+│   └── project-intelligence/
+│       ├── questioning-strategies.md
+│       └── planning-templates.md
+│
+├── learning/                  # Self-improvement
+├── telemetry/                 # Observability
+├── recovery/                  # Error handling
+├── patterns/                  # Design patterns
+└── mcp/                       # Integrations
+```
