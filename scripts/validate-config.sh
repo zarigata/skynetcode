@@ -25,13 +25,13 @@ validate_frontmatter() {
     
     if [ "$has_open_separator" -ne 1 ]; then
         echo -e "${RED}FAIL: $file - Missing opening --- separator${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
         return 1
     fi
     
     if [ "$has_close_separator" -lt 2 ]; then
         echo -e "${RED}FAIL: $file - Missing closing --- separator${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
         return 1
     fi
     
@@ -46,13 +46,13 @@ validate_required_fields() {
     
     if [ "$has_description" -lt 1 ]; then
         echo -e "${RED}FAIL: $file - Missing description field${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
         return 1
     fi
     
     if [ "$has_mode" -lt 1 ]; then
         echo -e "${RED}FAIL: $file - Missing mode field${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
         return 1
     fi
     
@@ -74,7 +74,7 @@ for agent_file in .opencode/agents/*.md; do
         # Check required fields
         if validate_required_fields "$agent_file"; then
             echo -e "${GREEN}PASS: $agent_name${NC}"
-            ((VALID++))
+            VALID=$((VALID + 1))
         fi
     fi
     echo ""
@@ -93,10 +93,10 @@ for context_file in .opencode/context/core/*.md .opencode/context/project-intell
     # Check file exists and has content
     if [ -s "$context_file" ]; then
         echo -e "${GREEN}PASS: $context_name${NC}"
-        ((VALID++))
+        VALID=$((VALID + 1))
     else
         echo -e "${RED}FAIL: $context_name - Empty file${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
     fi
     echo ""
 done
@@ -114,10 +114,10 @@ for skill_file in .opencode/skills/*.md; do
     # Check file exists and has content
     if [ -s "$skill_file" ]; then
         echo -e "${GREEN}PASS: $skill_name${NC}"
-        ((VALID++))
+        VALID=$((VALID + 1))
     else
         echo -e "${RED}FAIL: $skill_name - Empty file${NC}"
-        ((INVALID++))
+        INVALID=$((INVALID + 1))
     fi
     echo ""
 done
