@@ -9,9 +9,9 @@
     ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝
 ```
 
-# T-800 Agent Ecosystem
+# T-800 / T-799 Agent Ecosystem
 
-**"Think Before You Build"**
+**"Think Before You Build" — Research • Plan • Execute**
 
 [![OpenCode](https://img.shields.io/badge/OpenCode-Agent-Ecosystem-blue?style=for-the-badge&logo=robot)](https://github.com/opencode)
 [![Version](https://img.shields.io/badge/Version-3.0.0-green?style=for-the-badge)](https://github.com)
@@ -147,6 +147,55 @@ The Pre-Agent runs **before** T-800 starts working, ensuring optimal performance
 
 ---
 
+## 🔬 T-799 Research & Planning (NEW!)
+
+T-799 is a **planning-only agent** that researches and creates detailed multi-file plans before T-800 executes:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        T-799 WORKFLOW                                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   ┌──────────┐   ┌───────────┐   ┌──────────┐   ┌─────────────────┐   │
+│   │ RESEARCH │ → │ DECOMPOSE │ → │  DETAIL  │ → │ HANDOFF TO T800 │   │
+│   └──────────┘   └───────────┘   └──────────┘   └─────────────────┘   │
+│        │               │               │                  │            │
+│        ▼               ▼               ▼                  ▼            │
+│   Web + GitHub    Steps → Files   Sub-steps +       Plan folder       │
+│   + Context7       per step        Test targets      + manifest.json   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Research Tools (API-less)
+
+| Tool | Purpose |
+|------|---------|
+| `websearch_web_search_exa` | Web search for docs, tutorials |
+| `grep_app_searchGitHub` | Find real implementation patterns |
+| `context7_query-docs` | Official library documentation |
+| `google_search` | Current info, URL analysis |
+
+### Output Structure
+
+```
+.opencode/plans/{project-name}/
+├── 00-overview.md       # Architecture, tech stack, steps overview
+├── 01-step-setup.md     # Step 1 with sub-steps and test targets
+├── 02-step-auth.md      # Step 2 with sub-steps and test targets
+├── ...
+└── manifest.json        # Machine-readable summary for T-800
+```
+
+### Key Features
+- 🔬 **Exhaustive Research**: Web + GitHub + Context7
+- 📁 **Multi-File Plans**: Each step = separate .md file
+- ✅ **Test Coverage Targets**: Aims for 100% unit test coverage
+- 🤝 **Clean Handoff**: Asks confirmation before T-800 execution
+- 🚫 **No Code Execution**: Planning only, T-800 builds from plan
+
+---
+
 ## 🧠 Enhancement Ecosystem
 
 T-800 includes four advanced enhancement modules:
@@ -217,6 +266,7 @@ Patterns:
 ```
 .opencode/
 ├── agents/                    # Agent configurations
+│   ├── t799.md               # Research & Planning (NEW!)
 │   ├── t800.md               # Main orchestrator
 │   ├── t800-pre-agent.md     # Pre-Agent (task optimizer)
 │   ├── t800-questioner.md    # Questioning subagent
@@ -224,19 +274,26 @@ Patterns:
 │   └── t800-executor.md      # Execution subagent
 │
 ├── skills/                    # Agent skills
+│   ├── t799-research-planning.md  # Research & Planning (NEW!)
 │   ├── t800-pre-agent.md     # Pre-Agent skill
 │   ├── t800-questioning.md   # Deep questioning
 │   ├── t800-planning.md      # Comprehensive planning
 │   └── t800-execution.md     # Non-stop execution
 │
-├── pre-agent/                 # Pre-Agent modules (NEW!)
+├── plans/                     # T-799 output plans (NEW!)
+│   └── {project-name}/       # Generated plan folders
+│       ├── 00-overview.md    # Project overview
+│       ├── 01-step-*.md      # Step files with sub-steps
+│       └── manifest.json     # Machine-readable summary
+│
+├── pre-agent/                 # Pre-Agent modules
 │   ├── orchestrator.md       # Main orchestration
 │   ├── task-classifier.md    # Task classification
 │   ├── knowledge-retriever.md # Knowledge retrieval
 │   ├── context-optimizer.md  # Context optimization
 │   └── model-router.md       # Model selection
 │
-├── models/                    # Model integrations (NEW!)
+├── models/                    # Model integrations
 │   └── glm-integration.md    # GLM (Zhipu AI) integration
 │
 ├── context/                   # Context & standards
@@ -334,17 +391,18 @@ Once approved, T-800 executes:
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
-║                    T-800 ECOSYSTEM STATS                       ║
+║                    AGENT ECOSYSTEM STATS                      ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Agents          │  5  │  Main + Pre-Agent + 3 Subagents      ║
-║  Skills          │  4  │  Pre-Agent, Questioning, Planning... ║
-║  Pre-Agent Mods  │  5  │  Classifier, Retriever, Optimizer... ║
-║  Context Files   │  4  │  Standards, Workflows, Strategies    ║
-║  Enhancement Mod │  4  │  Learning, Telemetry, Recovery, Pat  ║
-║  Model Integr.   │  9  │  Claude, GPT, GLM, Haiku...          ║
-║  Total Files     │  70+│  12,000+ lines of documentation      ║
-║  Exception Types │ 10  │  With 3 recovery options each        ║
-║  Design Patterns │  3  │  ReAct, Plan-Exec, HITL              ║
+║  Agents          │  6  │  T-799 + T-800 + Pre-Agent + 3 Sub  ║
+║  Skills          │  5  │  Research-Planning, Pre-Agent, ...  ║
+║  Pre-Agent Mods  │  5  │  Classifier, Retriever, Optimizer...║
+║  Context Files   │  4  │  Standards, Workflows, Strategies   ║
+║  Enhancement Mod │  4  │  Learning, Telemetry, Recovery, Pat ║
+║  Model Integr.   │  9  │  Claude, GPT, GLM, Haiku...         ║
+║  Total Files     │  75+│  14,000+ lines of documentation    ║
+║  Exception Types │ 10  │  With 3 recovery options each       ║
+║  Design Patterns │  3  │  ReAct, Plan-Exec, HITL             ║
+║  Research Tools  │  6  │  WebSearch, GitHub, Context7...     ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 

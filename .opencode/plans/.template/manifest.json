@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "T-799 Plan Manifest",
+  "description": "Machine-readable plan summary for T-800 execution",
+  
+  "project": "{PROJECT_NAME}",
+  "created": "{ISO_TIMESTAMP}",
+  "version": "1.0.0",
+  "generator": "t799",
+  
+  "steps": [
+    {
+      "id": 1,
+      "name": "{Step Name}",
+      "file": "01-step-{slug}.md",
+      "effort": "SMALL",
+      "dependencies": [],
+      "files_affected": ["package.json", "src/index.ts", "tsconfig.json"],
+      "test_target": 100,
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "name": "{Step Name}",
+      "file": "02-step-{slug}.md",
+      "effort": "MEDIUM",
+      "dependencies": [1],
+      "files_affected": ["src/module1.ts", "tests/module1.test.ts"],
+      "test_target": 100,
+      "status": "pending"
+    }
+  ],
+  
+  "statistics": {
+    "total_steps": 2,
+    "total_files": 5,
+    "estimated_files_created": 5,
+    "estimated_files_modified": 0,
+    "overall_test_target": 100
+  },
+  
+  "test_targets": {
+    "unit": 100,
+    "integration": 90,
+    "e2e": 80,
+    "overall": 95
+  },
+  
+  "execution": {
+    "ready_for_t800": true,
+    "execution_order": [1, 2],
+    "parallel_groups": [
+      {"steps": [1], "can_parallelize": false}
+    ]
+  },
+  
+  "metadata": {
+    "technologies": ["typescript", "node"],
+    "domain": "backend",
+    "complexity": "medium"
+  }
+}
