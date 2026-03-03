@@ -27,7 +27,7 @@ run_test() {
     # Check if test file exists
     if [ ! -f "$test_file" ]; then
         echo -e "${RED}FAIL: Test file not found: $test_file${NC}"
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         return 1
     fi
     
@@ -37,18 +37,18 @@ run_test() {
     
     if [ "$has_description" -lt 1 ]; then
         echo -e "${RED}FAIL: Missing test suite description${NC}"
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         return 1
     fi
     
     if [ "$has_tests" -lt 1 ]; then
         echo -e "${RED}FAIL: No tests defined${NC}"
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         return 1
     fi
     
     echo -e "${GREEN}PASS: $test_name ($has_tests tests defined)${NC}"
-    ((TESTS_PASSED++))
+    TESTS_PASSED=$((TESTS_PASSED + 1))
     return 0
 }
 
